@@ -2,11 +2,17 @@
 import XCTest
 
 final class DataConvertTests: XCTestCase {
-    func testStringCount() {
+    func testStringCount() throws {
         let common = "common"
         let emoji = "👼"
         XCTAssertEqual(common.utf8.count, 6)
         XCTAssertEqual(emoji.utf8.count, 4)
+
+        let commonData = try common.toData()
+        XCTAssertEqual(commonData.count, common.utf8.count)
+
+        let emojiData = try emoji.toData()
+        XCTAssertEqual(emojiData.count, emoji.utf8.count)
     }
 
     func testBool() throws {
