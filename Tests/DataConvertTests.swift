@@ -7,12 +7,6 @@ final class DataConvertTests: XCTestCase {
         let emoji = "👼"
         XCTAssertEqual(common.utf8.count, 6)
         XCTAssertEqual(emoji.utf8.count, 4)
-
-        let commonData = try common.toData()
-        XCTAssertEqual(commonData.count, common.utf8.count)
-
-        let emojiData = try emoji.toData()
-        XCTAssertEqual(emojiData.count, emoji.utf8.count)
     }
 
     func testBool() throws {
@@ -69,5 +63,11 @@ final class DataConvertTests: XCTestCase {
         XCTAssertEqual(data.count, string.utf8.count)
         let decodeString = try String(data: data)
         XCTAssertEqual(string, decodeString)
+    }
+
+    func testError() throws {
+        let emptyData = Data()
+        XCTAssertThrowsError(try Float(data: emptyData))
+        XCTAssertThrowsError(try Double(data: emptyData))
     }
 }
